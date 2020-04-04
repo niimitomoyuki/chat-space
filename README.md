@@ -1,47 +1,43 @@
-## groups_usersテーブル
-
-|Column|Type|Options|
-|------|----|-------|
-|user_id|integer|null: false, foreign_key: true|
-|group_id|integer|null: false, foreign_key: true|
-|user_id|integer|index: true, foreign_key: true, null: false|
-|group_id|integer|index: true, foreign_key: true, null: false|
-
-### Association
-- belongs_to :group
-- belongs_to :user
-- belongs_to :user
-
 ## usersテーブル
 |Column|Type|Options|
 |------|----|-------|
-|name|string|null: false,unique: true|
-|mail|string|null:false,unique: true|
-|passward|string|null: false|
+|user_name|string|null:false,unique:true|
+|mail_adress|string|null:false,unique:true|
+|password|string|null:false|
 
 ### Association
-- has_many :groups,through:groups_users
-- has_many :messages
-- has_many :groups_users
+- has_many:groups,throgh:users_groups
+- has_many:messages
+- has_many:users_groups
+
+## messagesテーブル
+|Column|Type|Options|
+|------|----|-------|
+|body|text||
+|image|string||
+|user_id|references|null:false,foreign_key:true|
+|group_id|references|null:false,foreign_key:true|
+
+### Association
+- belongs_to:user
+- belongs_to:group
 
 ## groupsテーブル
 |Column|Type|Options|
 |------|----|-------|
-|name|strings|null: false|
+|group_name|string|null:false|
 
 ### Association
-- has_many :users, through: :uesrs_groups
-- has_many :messages
-- has_many :users_groups 
+- has_many:messages
+- has_many:users_groups
+- has_many:users,through:users_groups
 
-### messageテーブル
+## users_groupsテーブル
 |Column|Type|Options|
 |------|----|-------|
-|boby|text||
-|image|string||
-|group_id|references|null: false, foreign_key: true|
-|user_id|references|null: false, foreign_key: true|
+|user_id|integer|null:false,foreign_key:true|
+|group_id|integer|null:false,foreign_key:true|
 
 ### Association
-- belongs_to :user
-- belongs_to :group
+- belongs_to:group
+- belongs_to:user
